@@ -1,0 +1,32 @@
+<html>
+	<title>Emergency Contacts</title>
+	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<body>
+		<h3>List of Emergency Contacts</h3>
+		<form>
+			Name: <input id="contact-name" name="contact-name"/><br/>
+			Phone: <input id="contact-phone" name="contact-phone"/><br/>
+			<button id="submit">Submit</button>
+		</form>
+		<span style="display: none;" id="data-saved">Data saved successfully</span>
+	<script type="text/javascript">
+                $(document).ready(function(){
+			var oldPhone = "";
+                        $.get("/getEmergencyContacts.php",function(data){
+				var returnValue = JSON.parse(data);
+				oldPhone = returnValue[0].phone;
+                                $("#contact-name").val(returnValue[0].name);
+                                $("#contact-phone").val(returnValue[0].phone);                          
+                        });
+			$("#submit").on('click',function(e){
+				e.preventDefault();
+				var contactName = $("#contact-name").val();
+				var contactPhone = $("#contact-phone").val();
+				$.post("/updateEmergencyContact.php",{ "old-phone" : oldPhone, "contact-name" : contactName, "contact-phone" : contactPhone }).done(function(data) {
+						$("#data-saved").show();
+				});
+			});
+                });
+        </script>
+	</body>
+</html>

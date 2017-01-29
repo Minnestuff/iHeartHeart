@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Display Warning Data</title>
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
+	<style>
+		img {	
+		    display: block;
+		    margin: 0 auto;
+		}
+	</style>
+</head>
+<body>
+
+<div style="text-align: center">
+<h3>Displaying all warnings</h3>
+<small>BPM less than (&lt;) 60 or greater than (&gt;) 100</small>
+</div>
+
+<table id="data-table" cellspacing="0" width="50%" style="text-align: center"></table>
+<br/><br/>
+<hr>
+<div style="text-align: center;">
+<h3>Real time Heart Beat plot</h3>
+<small>Updated every 5 minutes</small>
+</div>
+<img src="https://s3-us-west-2.amazonaws.com/iheartheart/graph.png" align="middle"></img>
+
+<script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	var tableData = []
+	$.getJSON("/getDataFromTable.php",function(data){
+		$.each(data,function(index,value){
+			var severity = "<span style='background-color: red'>Danger</span>";
+			if(data[index]["bpm"] < 60 && data[index]["bpm"] >= 55) {
+				severity = "<span style='background-color: #FFA500'>Warning</span>";
+			}
+			var tempString = [data[index]["ID"],data[index]["bpm"],data[index]["timestamp"],severity];
+			tableData.push(tempString);
+		});
+		$("#data-table").DataTable({
+			data : tableData,
+			columns : [
+				{ title : "ID" },
+				{ title : "BPM" },
+				{ title : "Time Stamp" },
+				{ title : "Severity" }
+			]
+		});
+	});
+});
+</script>
+</body>
+</html>
