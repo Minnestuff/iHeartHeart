@@ -15,6 +15,7 @@ y = data["Heart Beat"].values.tolist()
 firstDiff = []
 secondDiff = []
 aFibBool = False
+bFlutter = False
 
 for idx,curVal in enumerate(y): 
     if idx == 0:
@@ -33,15 +34,19 @@ for idx,curVal in enumerate(firstDiff):
 
 plt.scatter(x, firstDiff)
 #print(secondDiff)
-#plt.saveFig("secondDiffFig.png")
+plt.saveFig("secondDiffFig.png")
 #plt.show()
 #print(len(x))
 #print(len(firstDiff))
 
 a = np.array([y])
+sd = np.std(a)
 print("Standard Deviation", np.std(a))
 np.std(a, axis=0)
 np.std(a, axis=1)
+
+if(sd < 1):
+    bFlutter = True
 
 print("First Diff")
 lm = smf.ols('firstDiff ~ x', data=data).fit() 
@@ -51,7 +56,6 @@ lm = smf.ols('secondDiff ~ x', data=data).fit()
 print(lm.params)
 print ("Atrial Fibrillation:", str(aFibBool))
 
-
-if aFibBool:
+if aFibBool or bFlutter:
     urllib2.urlopen("http://projects.amitnandanp.com/callsetup.php").read()
     
