@@ -6,7 +6,7 @@ from statsmodels.sandbox.regression.predstd import wls_prediction_std
 import pandas as pd
 import statsmodels.formula.api as smf
 import urllib2
-
+import tinys3
 
 #data = pd.read_csv('data.csv')
 data = pd.read_csv('http://projects.amitnandanp.com/getAnalysisData.php')
@@ -35,7 +35,13 @@ for idx,curVal in enumerate(firstDiff):
 plt.scatter(x, firstDiff)
 #print(secondDiff)
 plt.saveFig("graph.png")
-r = requests.post('http://projects.amitnandanp.com/fileUpload.php', files={'graph.png': open('graph.png', 'rb')})
+#r = requests.post('http://projects.amitnandanp.com/fileUpload.php', files={'graph.png': open('graph.png', 'rb')})
+conn = tinys3.Connection('AKIAIWHHQFQQJADBPILQ','9HG7+tWDSznfAylqa7+RX7y2JdDwuAn/5LPSxK91',tls=True)
+
+f = open('graph.png','rb')
+conn.upload('graph.png',f,'iHeartHeart')
+
+
 #plt.show()
 #print(len(x))
 #print(len(firstDiff))
