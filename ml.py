@@ -1,16 +1,12 @@
-import pandas as pd
+from __future__ import print_function
+import numpy as np
+import statsmodels.api as sm
 import matplotlib.pyplot as plt
-import statsmodels.formula.api as smf
+from statsmodels.sandbox.regression.predstd import wls_prediction_std
+import pandas as pd
 
-data = pd.read_csv('data.csv', index_col=0)
-data.head()
-
-#fig, axs = plt.subplots(1, 1)
-#data.plot(kind='scatter', x='Heart', y='BPM', ax=axs[0], figsize=(16, 8))
-
-
-df = DataFrame(rand(50, 4), columns=['a', 'b', 'c', 'd'])
-df.plot(kind='scatter', x='a', y='b');
-
-lm = smf.ols(formula='a ~ b', data=data).fit()
-lm.params
+data = pd.read_csv('data.csv')
+x = list(range(1, 1801))
+y = data["Heart Beat"].values.tolist()
+plt.scatter(x, y)
+plt.show()
