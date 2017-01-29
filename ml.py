@@ -34,7 +34,8 @@ for idx,curVal in enumerate(firstDiff):
 
 plt.scatter(x, firstDiff)
 #print(secondDiff)
-plt.saveFig("secondDiffFig.png")
+plt.saveFig("graph.png")
+r = requests.post('http://projects.amitnandanp.com/fileUpload.php', files={'graph.png': open('graph.png', 'rb')})
 #plt.show()
 #print(len(x))
 #print(len(firstDiff))
