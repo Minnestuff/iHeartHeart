@@ -1,3 +1,4 @@
+#This python script implements a machine algorithm on the heart beat data
 from __future__ import print_function
 import numpy as np
 import statsmodels.api as sm
