@@ -1,16 +1,7 @@
 <?php
 
-$servername = "wordpress-site.ce9wf7481i14.us-west-2.rds.amazonaws.com";
-$username = "amitnandanp";
-$password = "Nandan1!";
-$dbname = "heartbeat";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include_once("db_connect.php");
+$conn = db_connect();
 
 $sql = "SELECT * FROM HeartData";
 $result = $conn->query($sql);

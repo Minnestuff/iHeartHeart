@@ -21,19 +21,9 @@
     $AccountSid = "ACf04d43f510bf8f61c9f4c1d048f05fab";
     $AuthToken = "ef385fbde3e997a5a35d812372cb543c";
 
-
-	$servername = "wordpress-site.ce9wf7481i14.us-west-2.rds.amazonaws.com";
-	$username = "amitnandanp";
-	$password = "Nandan1!";
-	$dbname = "heartbeat";
+    include_once("db_connect.php");
+    $conn = db_connect();
 	
-	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	// Check connection
-	if ($conn->connect_error) {
-    		die("Connection failed: " . $conn->connect_error);
-	}
-
 	$sql = 	"SELECT phone FROM EmergencyContact";
 	$result = $conn->query($sql);
 	
