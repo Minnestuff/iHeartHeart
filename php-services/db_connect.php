@@ -14,3 +14,13 @@ function db_connect(){
 	}
 	return $conn;
 }
+
+function get_twilio_sid(){
+	$ini_file = parse_ini_file("config.ini");
+	return $ini_file["twilio_account_sid"];
+}
+
+function get_twilio_auth_token(){
+	$ini_file = parse_ini_file("config.ini");
+	return $ini_file["twilio_auth_token"];
+}

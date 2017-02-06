@@ -16,12 +16,14 @@
     // following the instructions to install it with Composer.
     require_once "vendor/autoload.php";
     use Twilio\Rest\Client;
-    
-    // Step 2: Set our AccountSid and AuthToken from https://twilio.com/console
-    $AccountSid = "ACf04d43f510bf8f61c9f4c1d048f05fab";
-    $AuthToken = "ef385fbde3e997a5a35d812372cb543c";
 
     include_once("db_connect.php");
+    
+    // Step 2: Set our AccountSid and AuthToken from https://twilio.com/console
+    $AccountSid = get_twilio_sid();
+    $AuthToken = get_twilio_auth_token();
+
+
     $conn = db_connect();
 	
 	$sql = 	"SELECT phone FROM EmergencyContact";
